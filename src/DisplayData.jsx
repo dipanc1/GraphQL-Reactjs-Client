@@ -13,15 +13,24 @@ const QUERY_ALL_USERS = gql`
 `
 
 const DisplayData = () => {
-    const { data } = useQuery(QUERY_ALL_USERS);
+    const { data, loading, error } = useQuery(QUERY_ALL_USERS);
 
-    if (!data) {
-        console.log(data);
+    if (loading) {
+        return <div>Loading...</div>
     }
 
-    return <div>
+    if (error) {
+        console.log(error);
+    }
 
-    </div>;
+
+    return <>
+        {data && data.users.map(user => <div key={user.id}>
+            <h3>{user.name}</h3>
+            <p>{user.age}</p>
+            <p>{user.username}</p>
+        </div>)}
+    </>
 };
 
 export default DisplayData;
