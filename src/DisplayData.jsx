@@ -50,12 +50,12 @@ const DisplayData = () => {
 
 
     //Create User States
-    const [userName, setUserName] = React.useState('');
-    const [userAge, setUserAge] = React.useState('');
-    const [userUsername, setUserUsername] = React.useState('');
-    const [userNationality, setUserNationality] = React.useState('');
+    const [name, setName] = React.useState('');
+    const [age, setAge] = React.useState('');
+    const [username, setUsername] = React.useState('');
+    const [nationality, setNationality] = React.useState('');
 
-    const { data, loading, error } = useQuery(QUERY_ALL_USERS);
+    const { data, loading, refetch } = useQuery(QUERY_ALL_USERS);
     const { data: movieData } = useQuery(QUERY_ALL_MOVIES);
     const [fetchMovie, { data: movieSearchData, error: movieError }] = useLazyQuery(GET_MOVIE_BY_NAME);
 
@@ -65,10 +65,6 @@ const DisplayData = () => {
         return <div>Loading...</div>
     }
 
-    if (error) {
-        console.log(error);
-    }
-
     if (movieError) {
         console.log(movieError);
     }
@@ -76,17 +72,18 @@ const DisplayData = () => {
     return (
         <div>
             <div>
-                <input type="text" placeholder='Name...' onChange={(e) => { setUserName(e.target.value); }} />
-                <input type="text" placeholder='Username...' onChange={(e) => { setUserUsername(e.target.value); }} />
-                <input type="number" placeholder='Age...' onChange={(e) => { setUserAge(e.target.value); }} />
-                <input type="text" placeholder='Nationality...' onChange={(e) => { setUserNationality(e.target.value.toUpperCase()); }} />
+                <input type="text" placeholder='Name...' onChange={(e) => { setName(e.target.value); }} />
+                <input type="text" placeholder='Username...' onChange={(e) => { setUsername(e.target.value); }} />
+                <input type="number" placeholder='Age...' onChange={(e) => { setAge(e.target.value); }} />
+                <input type="text" placeholder='Nationality...' onChange={(e) => { setNationality(e.target.value.toUpperCase()); }} />
                 <button onClick={() => {
                     createUser({
                         variables: {
                             input:
-                                { userName, userUsername, userAge, userNationality }
+                                { name, username, age: 21, nationality }
                         },
-                    })
+                    });
+                    refetch();
                 }}>Create User</button>
             </div>
             {data &&
