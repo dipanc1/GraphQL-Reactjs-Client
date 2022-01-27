@@ -57,6 +57,13 @@ const DisplayData = () => {
 
     return (
         <div>
+            <div>
+                <input type="text" placeholder='Name...' />
+                <input type="text" placeholder='Username...' />
+                <input type="number" placeholder='Age...' />
+                <input type="text" placeholder='Nationality...' />
+                <button>Create User</button>
+            </div>
             {data &&
                 data.users.map(user =>
                     <div key={user.id}>
