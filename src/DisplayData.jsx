@@ -80,7 +80,7 @@ const DisplayData = () => {
                     createUser({
                         variables: {
                             input:
-                                { name, username, age: 21, nationality }
+                                { name, username, age: Number(age), nationality }
                         },
                     });
                     refetch();
