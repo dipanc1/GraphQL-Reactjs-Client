@@ -51,6 +51,10 @@ const DisplayData = () => {
         console.log(error);
     }
 
+    if (movieError) {
+        console.log(movieError);
+    }
+
     return (
         <div>
             {data &&
@@ -82,14 +86,19 @@ const DisplayData = () => {
                 })}>Search</button>
                 <div>
                     {movieSearchData &&
-                        movieSearchData.movie.map(movie =>
-                            <div key={movie.id}>
-                                <h3>Movie Name: {movie.name}</h3>
-                                <h3>Year of Publication: {movie.yearOfPublication}
+                        (
+                            <div key={movieSearchData.movie.id}>
+                                <h3>Movie Name: {movieSearchData.movie.name}</h3>
+                                <h3>Year of Publication: {movieSearchData.movie.yearOfPublication}
                                 </h3>
-                                <h3>Is in theaters: {movie.isInTheaters ? 'Yes' : 'No'}</h3>
+                                <h3>Is in theaters: {movieSearchData.movie.isInTheaters ? 'Yes' : 'No'}</h3>
                             </div>
                         )
+                    }
+                    {movieError &&
+                        <div>
+                            <h3>Movie not found</h3>
+                        </div>
                     }
                 </div>
             </div>
